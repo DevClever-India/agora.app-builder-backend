@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
-	// "time"
+	"time"
 
 	"github.com/spf13/viper"
 )
@@ -133,14 +133,13 @@ func (rec *Recorder) Acquire() error {
 // Start starts the recording
 func (rec *Recorder) Start(channelTitle string, secret *string) error {
 	// currentTime := strconv.FormatInt(time.Now().Unix(), 10)
-
-	// location, err := time.LoadLocation("America/Los_Angeles")
-	// if err != nil {
-	// 	return err
-	// }
-	// currentTimeStamp := time.Now().In(location)
-	// currentDate := currentTimeStamp.Format("20060102")
-	// currentTime := currentTimeStamp.Format("150405")
+	location, err := time.LoadLocation("America/Los_Angeles")
+	if err != nil {
+		return err
+	}
+	currentTimeStamp := time.Now().In(location)
+	currentDate := currentTimeStamp.Format("20060102")
+	currentTime := currentTimeStamp.Format("150405")
 
 	transcodingConfig := TranscodingConfig{
 		Height:           720,
@@ -182,7 +181,7 @@ func (rec *Recorder) Start(channelTitle string, secret *string) error {
 				AccessKey: viper.GetString("BUCKET_ACCESS_KEY"),
 				SecretKey: viper.GetString("BUCKET_ACCESS_SECRET"),
 				FileNamePrefix: []string{
-					channelTitle,
+					channelTitle, currentDate, currentTime,
 				},
 			},
 			RecordingFileConfig: RecordingFileConfig{
