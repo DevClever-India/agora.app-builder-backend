@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
-	"time"
+	// "time"
 
 	"github.com/spf13/viper"
 )
@@ -133,7 +133,7 @@ func (rec *Recorder) Acquire() error {
 // Start starts the recording
 func (rec *Recorder) Start(channelTitle string, secret *string) error {
 	// currentTime := strconv.FormatInt(time.Now().Unix(), 10)
-	
+
 	// location, err := time.LoadLocation("America/Los_Angeles")
 	// if err != nil {
 	// 	return err
